@@ -31,19 +31,24 @@ public class LinkedList {
         second.next = third;
         printList(lList);
         //insert at End
-        log.info("Insert at End");
+        //log.info("Insert at End");
         lList.insertAtEnd(10);
         printList(lList);
         //insert at front
-        log.info("Insert at Front");
+        //log.info("Insert at Front");
         lList.insertAtFront(30);
         printList(lList);
         //insert after a node
-        log.info("Insert after a node");
+        //log.info("Insert after a node");
         lList.insertAfterNode(second, 54);
         printList(lList);
-        log.info("Delete a given");
-        lList.deleteNode(30);
+        // log.info("Delete a given");
+        //lList.deleteNode(30);
+        System.out.println("before  swapping");
+        printList(lList);
+        lList.swap(2, 54);
+        System.out.println("after swapping");
+        printList(lList);
     }
 
     private void deleteNode(int d) {
@@ -110,5 +115,63 @@ public class LinkedList {
         afterGivenNode.next = given.next;
         //make next of given node point to aftergiven node
         given.next = afterGivenNode;
+    }
+
+    public void swap(int a, int b) {
+
+        Node aNode = findNode(a);
+        System.out.println("Node A: " + aNode.data);
+        Node bNode = findNode(b);
+        System.out.println("Node B: " + bNode.data);
+        if ((aNode == null || bNode == null)) {
+            //If node one is the head: check::
+            if (aNode == head) {
+                //Find B:
+                Node prevB = findPrev(b);
+                Node temp = aNode.next;
+                prevB.next = aNode;
+                aNode.next = bNode.next;
+                bNode.next = temp;
+            } else if (bNode == head) {
+                Node prevA = findPrev(a);
+                Node temp = bNode.next;
+                prevA.next = bNode;
+                bNode.next = aNode.next;
+                aNode.next = temp;
+            }
+        } else {
+            Node prevA = findPrev(a);
+            Node prevB = findPrev(b);
+            Node temp = bNode.next;
+            prevA.next = bNode;
+            bNode.next = aNode.next;
+            aNode.next = temp;
+            prevB.next = aNode;
+        }
+    }
+
+    private Node findNode(int data) {
+        Node temp = head;
+        while (temp != null && temp.data != data) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+
+    private Node findPrev(int d) {
+        Node temp = head;
+        while (temp.next != null) {
+            if(temp.next.data == d){
+                break;
+            }
+            temp = temp.next;
+        }
+        if (temp != null) {
+            //temp = temp.next;
+            System.out.println("Previous Node: " + temp.data);
+            return temp;
+        }
+        return null;
     }
 }
