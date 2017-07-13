@@ -46,7 +46,7 @@ public class LinkedList {
         //lList.deleteNode(30);
         System.out.println("before  swapping");
         printList(lList);
-        lList.swap(2, 54);
+        lList.swap(10, 30);
         System.out.println("after swapping");
         printList(lList);
     }
@@ -123,30 +123,35 @@ public class LinkedList {
         System.out.println("Node A: " + aNode.data);
         Node bNode = findNode(b);
         System.out.println("Node B: " + bNode.data);
-        if ((aNode == null || bNode == null)) {
+        if (!(aNode == null || bNode == null)) {
             //If node one is the head: check::
             if (aNode == head) {
+                System.out.println("A is at the head");
                 //Find B:
                 Node prevB = findPrev(b);
                 Node temp = aNode.next;
                 prevB.next = aNode;
                 aNode.next = bNode.next;
                 bNode.next = temp;
+                head = bNode;
+
             } else if (bNode == head) {
+                System.out.println("B is at the head");
                 Node prevA = findPrev(a);
                 Node temp = bNode.next;
                 prevA.next = bNode;
                 bNode.next = aNode.next;
                 aNode.next = temp;
+                head = aNode;
+            } else {
+                Node prevA = findPrev(a);
+                Node prevB = findPrev(b);
+                Node temp = bNode.next;
+                prevA.next = bNode;
+                bNode.next = aNode.next;
+                aNode.next = temp;
+                prevB.next = aNode;
             }
-        } else {
-            Node prevA = findPrev(a);
-            Node prevB = findPrev(b);
-            Node temp = bNode.next;
-            prevA.next = bNode;
-            bNode.next = aNode.next;
-            aNode.next = temp;
-            prevB.next = aNode;
         }
     }
 
@@ -162,7 +167,7 @@ public class LinkedList {
     private Node findPrev(int d) {
         Node temp = head;
         while (temp.next != null) {
-            if(temp.next.data == d){
+            if (temp.next.data == d) {
                 break;
             }
             temp = temp.next;
