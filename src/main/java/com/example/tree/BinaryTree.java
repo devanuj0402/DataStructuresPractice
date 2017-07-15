@@ -1,4 +1,4 @@
-package com.tree.examples;
+package com.example.tree;
 
 /**
  * Created by Anuj on 15-07-2017.
